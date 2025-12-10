@@ -17,7 +17,6 @@ app.get("/api/search/anime", async (req, res) => {
     console.log("Fetching data...");
     const url = "https://api.myanimelist.net/v2/anime";
 
-    // Fetch first page
     let response = await axios.get(url, {
       headers: {
         "X-MAL-CLIENT-ID": MAL_CLIENT_ID,
