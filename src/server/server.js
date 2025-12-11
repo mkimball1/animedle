@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 4000;
 
 // Query anime by name (soft cap at 50 results)
 app.get("/api/search/anime", async (req, res) => {
-  const { q, limit = 50 } = req.query;
+  const { q, limit = 25 } = req.query;
   try {
     console.log("Fetching data...");
     const url = "https://api.myanimelist.net/v2/anime";
@@ -24,7 +24,7 @@ app.get("/api/search/anime", async (req, res) => {
       params: {
         q,
         limit: limit,
-        fields: "id,title",
+        fields: "id,title,main_picture",
       },
     });
 
