@@ -10,7 +10,7 @@ const MAL_CLIENT_ID = process.env.MAL_CLIENT_ID;
 const MAL_CLIENT_SECRET = process.env.MAL_CLIENT_SECRET;
 const PORT = process.env.PORT || 4000;
 
-// Query anime by name (soft cap at 50 results)
+// Query anime by name (soft cap at 25 results)
 app.get("/api/search/anime", async (req, res) => {
   const { q, limit = 25 } = req.query;
   try {

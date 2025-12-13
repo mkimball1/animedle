@@ -1,9 +1,24 @@
-/* .container {
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    height: 300px;
-    border: 1px solid black;
-    border-radius: 8px;
-    margin-top: 2vh;
-} */
+.search-results {
+  display: block;
+  max-height: 250px;
+  max-width: 500px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
+.search-item {
+  cursor: pointer;
+  background-color: white;
+  transition: background-color 0.2s ease;
+}
+
+/* keyboard highlight */
+.search-item.active {
+  background-color: #eee;
+}
+
+.search-item:hover {
+  background-color: #f2f2f2;
+}
