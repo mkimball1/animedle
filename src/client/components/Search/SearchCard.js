@@ -1,4 +1,4 @@
-import "./SearchCard.css"
+import "./Search.css"
 
 export function SearchCard({title, main_picture}){
     return (

@@ -1,14 +1,15 @@
 import './App.css';
-import {getSeasonAnime, searchAnime} from "../server/MAL"
 import {useState} from 'react';
-import { SearchBar } from './components/SearchBar';
+import { SearchBar } from './components/Search/SearchBar';
+import { Game } from './components/Game/Game';
 
 function App() {
-  
+  const [selectedAnime, setSelectedAnime] = useState(null)
 
   return (
     <div>
-        <SearchBar/>
+        <SearchBar setSelectedAnime={setSelectedAnime}/>
+        <Game selectedAnime={selectedAnime}/> 
     </div>
   );
 }

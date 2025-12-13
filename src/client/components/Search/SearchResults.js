@@ -1,5 +1,5 @@
 import { SearchCard } from "./SearchCard";
-import "./SearchResults.css";
+import "./Search.css";
 
 export function SearchResults({
     isOpen,
@@ -20,7 +20,7 @@ export function SearchResults({
             >
             <SearchCard
                 title={item.title}
-                main_picture={item.main_picture?.medium}
+                main_picture={item.main_picture?.large}
             />
             </div>
         ))}

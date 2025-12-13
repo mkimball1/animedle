@@ -1,11 +1,11 @@
-import {searchAnime} from "../../server/MAL"
+import {searchAnimeByQuery} from "../../../server/MAL"
 import {useState, useEffect, useRef} from 'react';
 
 import { useCombobox } from "downshift";
 
 import { SearchResults } from "./SearchResults";
 
-export function SearchBar() {
+export function SearchBar({setSelectedAnime}) {
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -36,7 +36,7 @@ export function SearchBar() {
 
         timerRef.current = setTimeout(async () => {
             try {
-                const res = await searchAnime(q, 25);
+                const res = await searchAnimeByQuery(q, 25);
                 const normalized = res.data.map((x) => x.node ?? x);
                 // console.log(normalized)
                 setItems(normalized);
@@ -54,6 +54,7 @@ export function SearchBar() {
         if (!selectedItem) {
             return;
         }
+        setSelectedAnime(selectedItem)
         console.log("Selected:", selectedItem);
 
         setInputValue("");

@@ -22,3 +22,20 @@
 .search-item:hover {
   background-color: #f2f2f2;
 }
+
+.container {
+    display: flex;
+    border: 1px solid black;
+    padding: 5px;
+    gap: 25px;
+    align-items: center;
+}
+
+.thumbnail {
+    border-radius: 10px;
+    height: 7.5vh;
+}
+
+.title{
+    color: blue
+}
