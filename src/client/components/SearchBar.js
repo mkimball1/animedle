@@ -12,7 +12,7 @@ export function SearchBar() {
     const [loading, setLoading] = useState(false)
     const [res, setRes] = useState([])
 
-    const listRef = useRef(null) // what does useref do
+    const listRef = useRef(null) // dont rerender page on update
 
     // Update debounced query after 500 ms of no activity
     useEffect(() => {
@@ -39,7 +39,10 @@ export function SearchBar() {
     // When debounced query changes (500 ms have passed), call API & update states
     useEffect(() => {
         if(!debouncedQuery) return;
-
+        if(debouncedQuery.length < 3) {
+            setRes([])
+            return
+        }
         console.log("Found results!")
         const fetchData = async () => {
             const results = await searchAnime(debouncedQuery);
@@ -102,6 +105,7 @@ export function SearchBar() {
                     setHighlightIndex(index)
                 }}
             />
+            
             
             
         </>
