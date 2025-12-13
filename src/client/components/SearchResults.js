@@ -1,7 +1,7 @@
 import { SearchCard } from "./SearchCard";
 
 
-export function SearchResults({res, highlightIndex, onSelect, listRef}){
+export function SearchResults({res, highlightIndex, onHoverIndex, onSelect,  listRef}){
     if (!res | res.length === 0) return null
 
     return (
@@ -13,13 +13,15 @@ export function SearchResults({res, highlightIndex, onSelect, listRef}){
             border: "1px solid #ccc",
             borderRadius: "8px",
             marginTop: "8px",
+            
         }}>
             {res.map((node, index) => {
                 const data = node.node ?? node
                 return (
                     <div
                         key={`sc${index}`}
-                        data-index={index} 
+                        data-index={index}
+                        onMouseEnter={() => onHoverIndex?.(index)}
                     > 
                         <SearchCard 
                             key={`sc${index}`}

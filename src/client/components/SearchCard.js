@@ -7,7 +7,7 @@ export function SearchCard({title, main_picture, index, isActive, onClick}){
             data-index={index}
             onClick={onClick}
             style={{
-                backgroundColor: isActive ? "#eee" : "white",
+                backgroundColor: isActive ? "green" : "white"
             }}
 
         >

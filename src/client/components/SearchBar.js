@@ -8,11 +8,17 @@ export function SearchBar() {
     const [query, setQuery] = useState("")
     const [debouncedQuery, setDebouncedQuery] = useState("");
     const [highlightIndex, setHighlightIndex] = useState(-1)
+    const [isFocused, setIsFocused] = useState(false)
     
     const [loading, setLoading] = useState(false)
     const [res, setRes] = useState([])
 
-    const listRef = useRef(null) // dont rerender page on update
+    const [selectedAnime, setSelectedAnime] = useState({})
+
+    const listRef = useRef(null) // dont rerender page on update 
+    const inputRef = useRef(null); // 
+
+
 
     // Update debounced query after 500 ms of no activity
     useEffect(() => {
@@ -80,7 +86,15 @@ export function SearchBar() {
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setHighlightIndex((prev) => (prev > 0 ? prev - 1 : prev));
-    } 
+    } else if (e.key == "Enter") {
+        e.preventDefault()
+        const result = res[highlightIndex].node
+        setSelectedAnime(result)
+        setIsFocused(false)
+        inputRef.current?.blur();
+        
+        
+    }
     // If you want TAB to move selection instead of leaving input:
     // else if (e.key === "Tab") { ...; e.preventDefault(); }
   };
@@ -90,21 +104,30 @@ export function SearchBar() {
             <input 
                 type="text"
                 placeholder='Search...' 
+                ref={inputRef}
                 value={query} 
                 onChange={(e) => {setQuery(e.target.value)}}
                 onKeyDown={handleKeyDown}
+                onFocus={() => setIsFocused(true)}
             />
 
             {loading && <p> loading... </p>}
-            <SearchResults
-                res={res}
-                highlightIndex={highlightIndex}
-                listRef={listRef}
-                onSelect={(data, index) => {
-                    console.log(data, index)
-                    setHighlightIndex(index)
-                }}
-            />
+            {isFocused && !loading && (
+                <SearchResults
+                    res={res}
+                    highlightIndex={highlightIndex}
+                    onHoverIndex={setHighlightIndex}
+                    listRef={listRef}
+                    onSelect={(data, index) => {
+                        console.log(data)
+                        setHighlightIndex(index)
+                        setSelectedAnime(data)
+                        setIsFocused(false)
+                    }}
+                />
+            )}
+
+            <button onClick={() => console.log(selectedAnime)}> click me</button>
             
             
             
