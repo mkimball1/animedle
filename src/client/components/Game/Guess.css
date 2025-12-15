@@ -1,0 +1,16 @@
+.cell-correct {
+  background-color: #2e7d32; /* green */
+  color: white;
+  font-weight: bold;
+}
+
+.cell-partial {
+  background-color: #f9a825; /* orange */
+  color: black;
+  font-weight: bold;
+}
+
+.cell-incorrect {
+  background-color: #c62828; /* red */
+  color: white;
+}

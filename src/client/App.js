@@ -5,11 +5,12 @@ import { Game } from './components/Game/Game';
 
 function App() {
   const [selectedAnime, setSelectedAnime] = useState(null)
-
+  
   return (
     <div>
         <SearchBar setSelectedAnime={setSelectedAnime}/>
         <Game selectedAnime={selectedAnime}/> 
+        
     </div>
   );
 }
