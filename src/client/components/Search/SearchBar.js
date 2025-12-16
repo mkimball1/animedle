@@ -55,7 +55,7 @@ export function SearchBar({setSelectedAnime}) {
             return;
         }
         setSelectedAnime(selectedItem)
-        console.log("Selected:", selectedItem);
+        // console.log("Selected:", selectedItem);
 
         setInputValue("");
         closeMenu();

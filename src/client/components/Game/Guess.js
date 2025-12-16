@@ -1,9 +1,19 @@
+const SEASON_ORDER = {
+    winter: 0,
+    spring: 1,
+    summer: 2,
+    fall:   3,
+  };
+
 export class Guess {
+  
   constructor(data) {
     this.id = data.id;
     this.title = data.title;
 
-    this.year = String(data.start_date).slice(0, 4);
+    // this.year = String(data.start_date).slice(0, 4);
+    // console.log(data)
+    this.season = data.start_season
     this.score = data.mean;
     this.popularity = data.popularity;
 
@@ -15,11 +25,27 @@ export class Guess {
 
   // -1, 0, 1 comparisons
   compareTitle(other) {
-  return this.title === other.title;
-}
+    return this.title === other.title;
+  }
 
-  compareYear(other) {
-    return Math.sign(other.year - this.year);
+  
+
+  compareSeason(other) {
+    var res = {
+        "text": null,
+        "color": "incorrect"
+    }
+    if (this.season.year !== other.season.year) {
+      res.text = Math.sign(other.season.year - this.season.year)  
+      return res
+    }
+
+    // Same year → compare season
+    res.color = "partial"
+    const season_order = Math.sign(SEASON_ORDER[other.season.season] - SEASON_ORDER[this.season.season])
+    if ((season_order) === 0) {res.color = "exact"}
+    res.text = season_order
+    return res
   }
 
   compareScore(other) {
@@ -74,10 +100,6 @@ export class Guess {
     }
     return true;
   }
-
-//   display(){
-//     console.log(this)
-//   }
 
 }
 

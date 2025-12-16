@@ -17,20 +17,26 @@ export function Game({selectedAnime}) {
 
         const fetchAnime = async () => {
             try {
-            const res = await searchAnimeByID(selectedAnime.id);
-            setGuesses(prev => [new GuessUtils.Guess(res), ...prev]);
+                const res = await searchAnimeByID(selectedAnime.id);
+                setGuesses(prev => [new GuessUtils.Guess(res), ...prev]);
+                console.log(res)
             } catch (e) {
-            console.error(e);
+                console.error(e);
             }
         };
 
         fetchAnime();
+        if(selectedAnime.id === 31988) {
+            console.log("You win!")
+        }
     }, [selectedAnime, guesses]);
 
 
     return (
         <div>
             {guesses.length !== 0 && <GameTable guesses={guesses}/>}
+
+            <button> Endless Mode </button>
         </div>
         
         
@@ -44,3 +50,6 @@ export function Game({selectedAnime}) {
 // Cons: Series with more seasons weighted heavier, but would happen anyways
 //     - I could just have an index on disc with preflattened data, so shows would be weighted equally
 //     - Would also require less API calls since i could just read from a txt file with vaild IDs
+
+// media_type: "movie", "tv" || Cannot be of type ova, ona, special
+// related_anime: in related_anime, if there is an entry with relation_type of "full story", "alternative_version", ignore it

@@ -5,8 +5,8 @@ const ans = new GuessUtils.Guess({
     "id": 31988,
     "title": "Hibike! Euphonium 2",
     "main_picture": {
-        "medium": "https://cdn.myanimelist.net/images/anime/10/81155.webp",
-        "large": "https://cdn.myanimelist.net/images/anime/10/81155l.webp"
+        "medium": "https://cdn.myanimelist.net/images/anime/10/81155.jpg",
+        "large": "https://cdn.myanimelist.net/images/anime/10/81155l.jpg"
     },
     "mean": 8.34,
     "rank": 266,
@@ -44,8 +44,8 @@ const ans = new GuessUtils.Guess({
                 "id": 27989,
                 "title": "Hibike! Euphonium",
                 "main_picture": {
-                    "medium": "https://cdn.myanimelist.net/images/anime/1517/142072.webp",
-                    "large": "https://cdn.myanimelist.net/images/anime/1517/142072l.webp"
+                    "medium": "https://cdn.myanimelist.net/images/anime/1517/142072.jpg",
+                    "large": "https://cdn.myanimelist.net/images/anime/1517/142072l.jpg"
                 }
             },
             "relation_type": "prequel",
@@ -56,8 +56,8 @@ const ans = new GuessUtils.Guess({
                 "id": 34204,
                 "title": "Hibike! Euphonium 2 Specials",
                 "main_picture": {
-                    "medium": "https://cdn.myanimelist.net/images/anime/13/83486.jpg",
-                    "large": "https://cdn.myanimelist.net/images/anime/13/83486l.jpg"
+                    "medium": "https://cdn.myanimelist.net/images/anime/13/83486.webp",
+                    "large": "https://cdn.myanimelist.net/images/anime/13/83486l.webp"
                 }
             },
             "relation_type": "side_story",
@@ -80,8 +80,8 @@ const ans = new GuessUtils.Guess({
                 "id": 35677,
                 "title": "Liz to Aoi Tori",
                 "main_picture": {
-                    "medium": "https://cdn.myanimelist.net/images/anime/1638/93032.webp",
-                    "large": "https://cdn.myanimelist.net/images/anime/1638/93032l.webp"
+                    "medium": "https://cdn.myanimelist.net/images/anime/1638/93032.jpg",
+                    "large": "https://cdn.myanimelist.net/images/anime/1638/93032l.jpg"
                 }
             },
             "relation_type": "side_story",
@@ -92,8 +92,8 @@ const ans = new GuessUtils.Guess({
                 "id": 35678,
                 "title": "Hibike! Euphonium Movie 3: Chikai no Finale",
                 "main_picture": {
-                    "medium": "https://cdn.myanimelist.net/images/anime/1141/102223.jpg",
-                    "large": "https://cdn.myanimelist.net/images/anime/1141/102223l.jpg"
+                    "medium": "https://cdn.myanimelist.net/images/anime/1141/102223.webp",
+                    "large": "https://cdn.myanimelist.net/images/anime/1141/102223l.webp"
                 }
             },
             "relation_type": "sequel",
@@ -111,7 +111,16 @@ const ans = new GuessUtils.Guess({
             "relation_type": "other",
             "relation_type_formatted": "Other"
         }
-    ]
+    ],
+    "media_type": "tv",
+    "broadcast": {
+        "day_of_the_week": "thursday",
+        "start_time": "00:00"
+    },
+    "start_season": {
+        "year": 2016,
+        "season": "fall"
+    }
 })
 
 export function GameTable( {guesses} ) {
@@ -122,7 +131,7 @@ export function GameTable( {guesses} ) {
                         <th>Title</th>
                         <th>Score</th>
                         <th>Popularity</th>
-                        <th>Year</th>
+                        <th>Season</th>
                         <th>Genre</th>
                         <th>Studio</th>
                         <th>Source</th>
@@ -132,10 +141,12 @@ export function GameTable( {guesses} ) {
                     {guesses.map((guess, index) => {
                         const titleCmp = guess.compareTitle(ans);
                         const genreCmp = guess.compareGenres(ans);
-                        const yearCmp = guess.compareYear(ans);
+                        const seasonCmp = guess.compareSeason(ans);
                         const studioCmp = guess.compareStudios(ans);
                         const scoreCmp = guess.compareScore(ans)
                         const popularCmp = guess.comparePopularity(ans)
+
+                        // console.log(seasonCmp)
                         return (
                             <tr key={`g${index}`}>
                                 <td className={GuessUtils.cellClassFromBool(titleCmp)}>
@@ -150,9 +161,9 @@ export function GameTable( {guesses} ) {
                                     {guess.popularity} {GuessUtils.renderCompareNumber(popularCmp)}
                                 </td>
 
-                                <td className={GuessUtils.cellClassFromNumber(yearCmp)}>
-                                    {guess.year} {GuessUtils.renderCompareNumber(yearCmp)}
-                                    </td>
+                                <td className={GuessUtils.cellClassFromSet(seasonCmp.color)}>
+                                    {guess.season.year} {guess.season.season} {GuessUtils.renderCompareNumber(seasonCmp.text)}
+                                </td>
 
                                 <td className={GuessUtils.cellClassFromSet(genreCmp)}>
                                     {Array.from(guess.genres).join(", ")}

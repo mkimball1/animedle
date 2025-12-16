@@ -62,6 +62,9 @@ app.get("/api/search/animeByID/:id", async (req, res) => {
           "source",
           "genres",
           "related_anime",
+
+          "media_type",
+          "start_season",
         ].join(",")
       },
     });
@@ -77,3 +80,5 @@ app.get("/api/search/animeByID/:id", async (req, res) => {
 
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
