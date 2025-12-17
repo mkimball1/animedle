@@ -1,4 +1,4 @@
-import {searchAnimeByQuery} from "../../../server/MAL"
+import { searchAnimeByQuery } from '../../api/malApi';
 import {useState, useEffect, useRef} from 'react';
 
 import { useCombobox } from "downshift";

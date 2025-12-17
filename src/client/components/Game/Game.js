@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { searchAnimeByID } from "../../../server/MAL"
+import { searchAnimeByID, getRandomAnime } from "../../api/malApi";
 import { GameTable } from "./GameTable";
 
 import * as GuessUtils from "./Guess";
@@ -31,12 +31,20 @@ export function Game({selectedAnime}) {
         }
     }, [selectedAnime, guesses]);
 
+    async function generateRandomAnime() {
+        try {
+            const anime = await getRandomAnime();
+            console.log(anime)
+        } catch (err) {
+            console.error("Failed to get random anime", err);
+        }
+        }
 
     return (
         <div>
             {guesses.length !== 0 && <GameTable guesses={guesses}/>}
 
-            <button> Endless Mode </button>
+            <button onClick={() => {console.log(generateRandomAnime())}}> get random </button>
         </div>
         
         
