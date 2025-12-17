@@ -1,16 +1,30 @@
-import './App.css';
-import {useState} from 'react';
-import { SearchBar } from './components/Search/SearchBar';
-import { Game } from './components/Game/Game';
+import "./App.css";
+import { SearchBar } from "./components/Search/SearchBar";
+import { Game } from "./components/Game/Game";
+import { useGame } from "./hooks/useGame";
 
 function App() {
-  const [selectedAnime, setSelectedAnime] = useState(null)
-  
+  const {
+    selectedAnime,
+    setSelectedAnime,
+    solution,
+    error,
+    generateRandomAnime,
+  } = useGame();
+
   return (
     <div>
-        <SearchBar setSelectedAnime={setSelectedAnime}/>
-        <Game selectedAnime={selectedAnime}/> 
-        
+      <SearchBar 
+        setSelectedAnime={setSelectedAnime}
+      />
+
+      <Game
+        selectedAnime={selectedAnime}
+        setSelectedAnime={setSelectedAnime}
+        solution={solution}
+        error={error}
+        onNewGame={generateRandomAnime}
+      />
     </div>
   );
 }

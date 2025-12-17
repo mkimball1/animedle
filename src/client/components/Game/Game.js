@@ -1,54 +1,56 @@
 import { useEffect, useState } from "react"
-import { searchAnimeByID, getRandomAnime } from "../../api/malApi";
+import { searchAnimeByID } from "../../api/malApi";
 import { GameTable } from "./GameTable";
 
 import * as GuessUtils from "./Guess";
 
-export function Game({selectedAnime}) {
+export function Game({selectedAnime, setSelectedAnime, solution, error, onNewGame}){
+    console.log("solution:", solution)
     const [guesses, setGuesses] = useState([])
 
     useEffect(() => {
         if (!selectedAnime) return;
 
-        // check for duplicates
-        if (guesses.some(g => g.id === selectedAnime.id)) {
-            return;
-        }
+        let cancelled = false;
 
-        const fetchAnime = async () => {
+        (async () => {
             try {
-                const res = await searchAnimeByID(selectedAnime.id);
-                setGuesses(prev => [new GuessUtils.Guess(res), ...prev]);
-                console.log(res)
-            } catch (e) {
-                console.error(e);
+            const res = await searchAnimeByID(selectedAnime.id);
+            if (cancelled) return;
+
+            setGuesses(prev => {
+                if (prev.some(g => g.id === selectedAnime.id)) return prev;
+                return [new GuessUtils.Guess(res), ...prev];
+            });
+
+            if (selectedAnime.id === solution?.id) {
+                console.log("You win!");
             }
-        };
+            } catch (e) {
+            console.error(e);
+            }
+        })();
 
-        fetchAnime();
-        if(selectedAnime.id === 31988) {
-            console.log("You win!")
-        }
-    }, [selectedAnime, guesses]);
+        return () => { cancelled = true; };
+    }, [selectedAnime, solution]);
 
-    async function generateRandomAnime() {
-        try {
-            const anime = await getRandomAnime();
-            console.log(anime)
-        } catch (err) {
-            console.error("Failed to get random anime", err);
-        }
-        }
+
+    function playAgain(){
+        setGuesses([])
+        setSelectedAnime(null)
+        onNewGame()
+    }
+
+    if (!solution) {
+        return <div>Loading solution…</div>; // or spinner
+    }
 
     return (
         <div>
-            {guesses.length !== 0 && <GameTable guesses={guesses}/>}
-
-            <button onClick={() => {console.log(generateRandomAnime())}}> get random </button>
+            {guesses.length !== 0 && <GameTable guesses={guesses} solution={solution} />}
+            <button onClick={playAgain}>play again</button>
         </div>
-        
-        
-    )
+    );
 }
 
 // When selected the solution, what rules should be in place to filter possible solutions?
