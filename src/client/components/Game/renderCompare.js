@@ -14,15 +14,20 @@ export function renderCompareBool(result) {
 }
 
 export function cellClassFromNumber(result) {
-  return result === 0 ? "cell-correct" : "cell-incorrect";
+  // Prefer Tailwind utilities when available; fall back to local CSS classes.
+  return result === 0
+    ? "bg-green-700 text-white font-bold cell-correct"
+    : "bg-red-600 text-white cell-incorrect";
 }
 
 export function cellClassFromBool(result) {
-  return result ? "cell-correct" : "cell-incorrect";
+  return result
+    ? "bg-green-700 text-white font-bold cell-correct"
+    : "bg-red-600 text-white cell-incorrect";
 }
 
 export function cellClassFromSet(result) {
-  if (result === "exact") return "cell-correct";   // green
-  if (result === "partial") return "cell-partial"; // orange
-  return "cell-incorrect";                         // red
+  if (result === "exact") return "bg-green-700 text-white font-bold cell-correct"; // green
+  if (result === "partial") return "bg-yellow-400 text-black font-bold cell-partial"; // orange
+  return "bg-red-600 text-white cell-incorrect"; // red
 }

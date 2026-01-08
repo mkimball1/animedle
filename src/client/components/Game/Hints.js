@@ -2,9 +2,8 @@ export const HINTS = [
   { key: "episodes",   label: "Episodes",                 unlockAtGuesses: 2 },
   { key: "themes",     label: "Opening/Ending Themes",    unlockAtGuesses: 4 },
   { key: "recs",       label: "Similar Shows",            unlockAtGuesses: 6 },
-  { key: "imgBlur",    label: "Picture (blurred)",        unlockAtGuesses: 8},
+  { key: "imgBlur",    label: "Picture (blurred)",        unlockAtGuesses: 0},
   { key: "synopsis1",  label: "1st sentence of synopsis", unlockAtGuesses: 10 },
-  { key: "imgClear",   label: "Picture (unblurred)",      unlockAtGuesses: 12 },
 ];
 
 export function firstSentence(text = "") {
@@ -43,7 +42,6 @@ export function renderHint(hintKey, details) {
       return firstSentence(details.synopsis);
 
     case "imgBlur":
-    case "imgClear": {
       const src = details.main_picture?.medium || details.main_picture?.large;
       if (!src) return "N/A";
       const blurred = hintKey === "imgBlur";
@@ -54,12 +52,10 @@ export function renderHint(hintKey, details) {
           style={{
             width: 220,
             borderRadius: 12,
-            filter: blurred ? "blur(14px)" : "none",
-            transform: blurred ? "scale(1.05)" : "none",
+            filter: "blur(5px)",
           }}
         />
       );
-    }
 
     default:
       return "N/A";

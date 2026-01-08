@@ -50,8 +50,8 @@ export function Game({selectedAnime, setSelectedAnime, solution, onNewGame}){
         <div>
             {guesses.length !== 0 && <GameTable guesses={guesses} solution={solution} />}
             <button onClick={playAgain}>play again</button>
-            <button onClick={() => {console.log(solution)}}> i give up </button>
             <HintsPanel guesses={guesses} solution={solution} />
+            <button onClick={() => {console.log(solution)}}> i give up </button>
         </div>
     );
 }

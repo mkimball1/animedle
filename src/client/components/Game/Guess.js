@@ -27,7 +27,7 @@ export class Guess {
       "ending": data.ending_themes
     }
     this.similar = data.recommendations
-    this.pictures = data.pictures
+    this.main_picture = data.main_picture
   }
 
   // -1, 0, 1 comparisons
