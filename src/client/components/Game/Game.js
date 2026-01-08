@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import { searchAnimeByID } from "../../api/malApi";
 import { GameTable } from "./GameTable";
+import { HintsPanel } from "./Hints";
 
 import * as GuessUtils from "./Guess";
 
-export function Game({selectedAnime, setSelectedAnime, solution, error, onNewGame}){
-    console.log("solution:", solution)
+export function Game({selectedAnime, setSelectedAnime, solution, onNewGame}){
+    // console.log("solution:", solution)
     const [guesses, setGuesses] = useState([])
 
     useEffect(() => {
@@ -15,19 +16,19 @@ export function Game({selectedAnime, setSelectedAnime, solution, error, onNewGam
 
         (async () => {
             try {
-            const res = await searchAnimeByID(selectedAnime.id);
+                const res = await searchAnimeByID(selectedAnime.id);
             if (cancelled) return;
 
             setGuesses(prev => {
                 if (prev.some(g => g.id === selectedAnime.id)) return prev;
-                return [new GuessUtils.Guess(res), ...prev];
+                    return [new GuessUtils.Guess(res), ...prev];
             });
 
             if (selectedAnime.id === solution?.id) {
                 console.log("You win!");
             }
             } catch (e) {
-            console.error(e);
+                console.error(e);
             }
         })();
 
@@ -49,6 +50,8 @@ export function Game({selectedAnime, setSelectedAnime, solution, error, onNewGam
         <div>
             {guesses.length !== 0 && <GameTable guesses={guesses} solution={solution} />}
             <button onClick={playAgain}>play again</button>
+            <button onClick={() => {console.log(solution)}}> i give up </button>
+            <HintsPanel guesses={guesses} solution={solution} />
         </div>
     );
 }
@@ -61,5 +64,14 @@ export function Game({selectedAnime, setSelectedAnime, solution, error, onNewGam
 //     - I could just have an index on disc with preflattened data, so shows would be weighted equally
 //     - Would also require less API calls since i could just read from a txt file with vaild IDs
 
+// Building cache:
 // media_type: "movie", "tv" || Cannot be of type ova, ona, special
 // related_anime: in related_anime, if there is an entry with relation_type of "full story", "alternative_version", ignore it
+
+// HINTS: After every 2 guesses, give another hint
+// Number of episodes
+// opening & ending themes
+// similar shows (recommendations)
+// 1st sentence of synopsis
+// pictures (blurred)
+// picutures (unblurred) 

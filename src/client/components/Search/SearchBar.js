@@ -19,7 +19,7 @@ export function SearchBar({setSelectedAnime}) {
         const q = String(inputValue.inputValue ?? "").trim()
         // console.log(q)
 
-        if (q.length < 2) {
+        if (q.length < 3) {
             if (timerRef.current) clearTimeout(timerRef.current);
             setItems([]);
             setLoading(false);

@@ -7,11 +7,9 @@ const SEASON_ORDER = {
 
 export class Guess {
   constructor(data) {
+    // Comparisons
     this.id = data.id;
     this.title = data.title;
-
-    // this.year = String(data.start_date).slice(0, 4);
-    // console.log(data)
     this.season = data.start_season
     this.score = data.mean;
     this.popularity = data.popularity;
@@ -20,14 +18,22 @@ export class Guess {
     this.studios = new Set(data.studios.map(s => s.name));
 
     this.source = data.source;
+
+    // Hints!!
+    this.num_episodes = data.num_episodes
+    this.synopsis = data.synopsis
+    this.themes = {
+      "opening": data.opening_themes, 
+      "ending": data.ending_themes
+    }
+    this.similar = data.recommendations
+    this.pictures = data.pictures
   }
 
   // -1, 0, 1 comparisons
   compareTitle(other) {
     return this.title === other.title;
   }
-
-  
 
   compareSeason(other) {
     var res = {

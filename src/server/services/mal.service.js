@@ -39,6 +39,45 @@ export async function getAnimeById(id) {
         "related_anime",
         "media_type",
         "start_season",
+
+        "alternative_titles",
+        "synopsis",
+        "background",
+
+        // Broadcast & structure
+        "status",
+        "num_episodes",
+        "broadcast",
+        "average_episode_duration",
+
+        // Popularity & engagement
+        "num_list_users",
+        "num_scoring_users",
+
+        // Classification
+        "rating",
+        "nsfw",
+
+        // Relationships
+        "related_manga",
+        "recommendations",
+
+        // Taxonomy
+        "themes",
+        "demographics",
+
+        // Media assets
+        "pictures",
+        "opening_themes",
+        "ending_themes",
+
+        // Production details
+        "producers",
+        "licensors",
+
+        // Metadata
+        "created_at",
+        "updated_at",
       ].join(","),
     },
   });

@@ -11,6 +11,7 @@ export function useGame() {
     try {
       setError(null);
       const raw = await getRandomAnime();
+      console.log(raw)
       setSolution(new GuessUtils.Guess(raw));
       setSelectedAnime(null); // optional: reset selection on new round
     } catch (err) {
@@ -23,15 +24,14 @@ export function useGame() {
 
     useEffect(() => {
         if (didInit.current) return;
-        didInit.current = true;
-        generateRandomAnime();
+            didInit.current = true;
+            generateRandomAnime();
     }, [generateRandomAnime]);
 
   return {
     selectedAnime,
     setSelectedAnime,
     solution,
-    error,
     generateRandomAnime,
   };
 }
